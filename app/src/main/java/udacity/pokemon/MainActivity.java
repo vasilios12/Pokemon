@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         pokemonList = new ArrayList<>();
-        list_view = (ListView) findViewById(R.id.list);
+        list_view = () findViewById(R.id.list);
 
         new GetPokemon().execute();
     }
@@ -64,8 +64,8 @@ public class MainActivity extends AppCompatActivity {
 
             String jsonString = "";
             try {
-                // TODO: make a request to the URL
-
+                // We made a request to the URL
+                jsonString = sh.makeHttpRequest(createUrl(url));
             } catch (IOException e) {
                 return null;
             }
@@ -73,16 +73,21 @@ public class MainActivity extends AppCompatActivity {
             Log.e(TAG, "Response from url: " + jsonString);
             if (jsonString != null) {
                 try {
-                    //TODO: Create a new JSONObject
-
-                    // TODO: Get the JSON Array node and name it "pokemons"
-
+                    //Creates a new JSONObject
+                    JSONObject jsonObj = new JSONObject(jsonString);
+                    // Gets the JSON Array node and name it "pokemons"
+                    JSONArray pokemons = jsonObj.getJSONArray("pokemon");
 
                     // looping through all Contacts
                     for (int i = 0; i < pokemons.length(); i++) {
-                        //TODO: get the JSONObject and its three attributes
+                        //gets the JSONObject and its three attributes
+                        JSONObject currentPokemon = pokemons.getJSONObject(i);
 
+                        String name  = currentPokemon.getString("name");
 
+                        String id = currentPokemon.getString("id");
+
+                        String candy = currentPokemon.getString("candy");
                         // tmp hash map for a single pokemon
                         HashMap<String, String> pokemon = new HashMap<>();
 
