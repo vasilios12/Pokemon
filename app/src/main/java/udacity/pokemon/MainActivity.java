@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         pokemonList = new ArrayList<>();
-        list_view = () findViewById(R.id.list);
+        list_view = (ListView) findViewById(R.id.list);
 
         new GetPokemon().execute();
     }
